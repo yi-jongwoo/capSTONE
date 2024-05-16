@@ -41,8 +41,11 @@ pair<int*,int*> embad_unit(int n,vector<int>* grr,int w,int h){
 	return {x,y};
 }
 
-void dfs_con(int x,int y,vector<int>* arr,int* vit,vector<int>& out){
-	
+void dfs_con(int x,vector<int>* arr,int* vit,vector<int>& out){
+	vit[x]=1;
+	out.push_back(x);
+	for(int y:arr[x])if(!vit[y])
+		dfs_con(y,arr,vit,out);
 }
 
 void graph_visualization(int n,vector<int>* arr,string filename,int w,int h){
