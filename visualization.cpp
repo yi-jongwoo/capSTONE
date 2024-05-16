@@ -1,12 +1,4 @@
-#include "graph_visualization.h"
-
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-using std::string;
-using std::ofstream;
-using std::vector;
+#include "stone_internal_header.h"
 
 void make_svg_undirected(string filename,int w,int h,int n,vector<int>* arr,int* x,int* y){
 	ofstream fout(filename);
