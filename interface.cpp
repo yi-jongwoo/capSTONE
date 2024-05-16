@@ -1,3 +1,6 @@
+#include "stone_internal_header.h"
+#include "graph_visualization.h"
+
 vector<int>* undirectionalize(int n,vector<int>* arr){
 	vector<int>* grr=new vector<int>[n];
 	int n;cin>>n;
@@ -11,16 +14,6 @@ vector<int>* undirectionalize(int n,vector<int>* arr){
 	sort(edges.begin(),edges.end());
 	edges.resize(unique(edges.begin(),edges.end())-edges.begin());
 	return grr; // use delete[] grr later
-}
-
-bool dfs_check_tree(int x,int y,vector<int>* arr,int* vit){
-	
-}
-
-bool is_tree(int n,vector<int>* arr){
-	int*vit=new int[n];
-	dfs_check_tree(0,-1,arr,vit);
-	delete[] vit;
 }
 
 bool is_undirected(int n,vector<int>* arr){
@@ -52,7 +45,7 @@ void dfs_con(int x,int y,vector<int>* arr,int* vit,vector<int>& out){
 	
 }
 
-void interface(int n,vector<int>* arr,string filename,int w,int h){
+void graph_visualization(int n,vector<int>* arr,string filename,int w,int h){
 	int* x=new int[n];
 	int* y=new int[n];
 	vector<int>* grr=undirectionalize(n,arr);
