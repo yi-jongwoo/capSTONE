@@ -3,7 +3,6 @@
 
 vector<int>* undirectionalize(int n,vector<int>* arr){
 	vector<int>* grr=new vector<int>[n];
-	int n;cin>>n;
 	vector<pair<int,int>> edges;
 	for(int i=0;i<n;i++)
 		for(int j:arr[i])
@@ -31,13 +30,13 @@ pair<int*,int*> embad_unit(int n,vector<int>* grr,int w,int h){
 	int* x=new int[n];
 	int* y=new int[n];
 	if(is_tree(n,grr))
-		embad_tree(n,grr,w,h);
+		embad_tree(n,grr,w,h,x,y);
 	else if(is_cactus(n,grr))
-		embad_cactus(n,grr,w,h);
+		embad_cactus(n,grr,w,h,x,y);
 	else if(is_planar(n,grr))
-		embad_planar(n,grr,w,h);
+		embad_planar(n,grr,w,h,x,y);
 	else
-		embad_general(n,grr,w,h);
+		embad_general(n,grr,w,h,x,y);
 	return {x,y};
 }
 
@@ -57,7 +56,7 @@ void graph_visualization(int n,vector<int>* arr,string filename,int w,int h){
 	for(int i=0;i<n;i++){
 		if(vit[i])continue;
 		vector<int> uv;
-		dfs_con(i,-1,grr,vit,uv);
+		dfs_con(i,grr,vit,uv);
 		vector<int>* unit=new vector<int>[uv.size()];
 		map<int,int> inv_uv;
 		for(int i=0;i<uv.size();i++)
@@ -79,9 +78,9 @@ void graph_visualization(int n,vector<int>* arr,string filename,int w,int h){
 	delete [] vit;
 	delete [] grr;
 	if(is_undirected(n,grr))
-		make_svg_undirected(f,w,h,n,arr,x,y);
+		make_svg_undirected(filename,w,h,n,arr,x,y);
 	else
-		make_svg(f,w,h,n,arr,x,y);
+		make_svg(filename,w,h,n,arr,x,y);
 	delete [] x;
 	delete [] y;
 }
