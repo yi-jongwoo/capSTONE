@@ -1,4 +1,6 @@
 #include "stone_internal_header.h"
+#include "../boost_1_82_0/boost/graph/adjacency_list.hpp"
+#include "../boost_1_82_0/boost/graph/boyer_myrvold_planar_test.hpp"
 
 bool dfs_check_tree(int x,int p,vector<int>* arr,int* vit){
 	vit[x]=1;
