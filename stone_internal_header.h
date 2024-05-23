@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
+#include "../boost_1_82_0/boost/graph/adjacency_list.hpp"
+#include "../boost_1_82_0/boost/graph/boyer_myrvold_planar_test.hpp"
 
 //impl in test_graph.cpp
 bool is_tree(int n,vector<int>* arr);
