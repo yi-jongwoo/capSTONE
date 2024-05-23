@@ -40,8 +40,10 @@ bool is_cactus(int n,vector<int>* arr){ // cactus := edge cactus
 	return res;
 }
 
-
-
 bool is_planar(int n,vector<int>* arr){
-	
+	boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS,int> g(n);
+	for(int i=0;i<n;i++)
+		for(int j:arr[i])if(i<j)
+			add_edge(i,j,g);
+	return boost::boyer_myrvold_planarity_test(g);
 }
