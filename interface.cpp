@@ -12,6 +12,10 @@ vector<int>* undirectionalize(int n,vector<int>* arr){
 				edges.emplace_back(j,i);
 	sort(edges.begin(),edges.end());
 	edges.resize(unique(edges.begin(),edges.end())-edges.begin());
+	for(auto[x,y]:edges){
+		grr[x].push_back(y);
+		grr[y].push_back(x);
+	}
 	return grr; // use delete[] grr later
 }
 
@@ -50,13 +54,14 @@ void dfs_con(int x,vector<int>* arr,int* vit,vector<int>& out){
 void graph_visualization(int n,vector<int>* arr,string filename,int w,int h){
 	int* x=new int[n];
 	int* y=new int[n];
-	vector<int>* grr=undirectionalize(n,arr);
-	int* vit=new int[n];
+	vector<int>* grr=undirectionalize(n,arr); 
+	int* vit=new int[n]; memset(vit,0,n*sizeof(int));
 	int prev=0;
 	for(int i=0;i<n;i++){
 		if(vit[i])continue;
 		vector<int> uv;
 		dfs_con(i,grr,vit,uv);
+		
 		vector<int>* unit=new vector<int>[uv.size()];
 		map<int,int> inv_uv;
 		for(int i=0;i<uv.size();i++)
@@ -77,10 +82,10 @@ void graph_visualization(int n,vector<int>* arr,string filename,int w,int h){
 	
 	delete [] vit;
 	delete [] grr;
-	if(is_undirected(n,grr))
+	//if(is_undirected(n,grr))
 		make_svg_undirected(filename,w,h,n,arr,x,y);
-	else
-		make_svg(filename,w,h,n,arr,x,y);
+	//else
+	//	make_svg(filename,w,h,n,arr,x,y);
 	delete [] x;
 	delete [] y;
 }

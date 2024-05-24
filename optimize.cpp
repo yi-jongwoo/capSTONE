@@ -221,8 +221,86 @@ void nonconvexed_decrossing(int n,vector<int>* arr,int w,int h,int* out_x,int* o
 	}
 }
 
-void embad_planar(int n,vector<int>* grr,int w,int h,int* x,int* y){
-	embad_general(n,grr,w,h,x,y); // not implemented now
+struct coord_t
+{
+  std::size_t x;
+  std::size_t y;
+};
+struct face_counter : public boost::planar_face_traversal_visitor
+{
+  face_counter() : count(0) {}
+  void begin_face() { ++count; }
+  int count;
+};
+
+void embad_planar(int n,vector<int>* arr,int w,int h,int* x,int* y){
+	using namespace boost;
+	typedef adjacency_list<vecS,vecS,undirectedS,property<vertex_index_t, int>,property<edge_index_t, int>> graph_t;
+	typedef std::vector< graph_traits<graph_t>::edge_descriptor > vec_t;
+	typedef vector< vector< graph_traits<graph_t>::edge_descriptor >> storage_t;
+	typedef iterator_property_map< storage_t::iterator,property_map<graph_t, vertex_index_t>::type> embedding_t;
+	typedef std::vector< coord_t > straight_line_drawing_storage_t;
+	typedef boost::iterator_property_map<straight_line_drawing_storage_t::iterator,property_map<graph_t, vertex_index_t>::type > drawing_t;
+	graph_t g(n);
+	for(int i=0;i<n;i++)
+		for(int j:arr[i])if(i<j)
+			add_edge(i,j,g);
+	
+	property_map<graph_t, edge_index_t>::type e_index = get(edge_index, g);
+	graph_traits<graph_t>::edges_size_type edge_count = 0;
+	graph_traits<graph_t>::edge_iterator ei, ei_end;
+	for(tie(ei, ei_end) = edges(g); ei != ei_end; ++ei)
+		put(e_index, *ei, edge_count++);
+	
+	std::vector<vec_t> embedding(num_vertices(g));
+	
+	assert(boyer_myrvold_planarity_test(boyer_myrvold_params::graph = g,boyer_myrvold_params::embedding =&embedding[0]));
+	make_biconnected_planar(g, &embedding[0]);
+	
+	edge_count = 0;
+	for(tie(ei, ei_end) = edges(g); ei != ei_end; ++ei)
+		put(e_index, *ei, edge_count++);
+	
+	assert(boyer_myrvold_planarity_test(boyer_myrvold_params::graph = g,boyer_myrvold_params::embedding =&embedding[0]));
+	make_maximal_planar(g, &embedding[0]);
+	
+	edge_count = 0;
+	for(tie(ei, ei_end) = edges(g); ei != ei_end; ++ei)
+		put(e_index, *ei, edge_count++);
+	
+	assert(boyer_myrvold_planarity_test(boyer_myrvold_params::graph = g,boyer_myrvold_params::embedding =&embedding[0]));
+	
+	storage_t planar_embedding_storage(num_vertices(g));
+	embedding_t planar_embedding(planar_embedding_storage.begin(),get(vertex_index, g));
+	boost::boyer_myrvold_planarity_test(boyer_myrvold_params::graph = g,boyer_myrvold_params::embedding = planar_embedding);
+	
+	std::vector<graph_traits<graph_t>::vertex_descriptor> ordering;
+	planar_canonical_ordering(g, planar_embedding, std::back_inserter(ordering));
+	straight_line_drawing_storage_t straight_line_drawing_storage(num_vertices(g));
+	drawing_t straight_line_drawing(straight_line_drawing_storage.begin(), get(vertex_index,g));
+    chrobak_payne_straight_line_drawing(g,planar_embedding, ordering.begin(),ordering.end(),straight_line_drawing);
+	
+	graph_traits<graph_t>::vertex_iterator vi, vi_end;
+	for(tie(vi,vi_end) = vertices(g); vi != vi_end; ++vi){
+      	coord_t coord(get(straight_line_drawing,*vi));
+      	x[*vi]=coord.x;
+      	y[*vi]=coord.y;
+    }
+	
+	int xmax=-1987654321,xmin=1987654321;
+	int ymax=-1987654321,ymin=1987654321;
+	
+	for(int i=0;i<n;i++){
+		xmax=max(xmax,x[i]);xmin=min(xmin,x[i]);
+		ymax=max(ymax,y[i]);ymin=min(ymin,y[i]);
+	}
+	
+	for(int i=0;i<n;i++){
+		x[i]=ll(x[i]-xmin)*w/(xmax-xmin);
+		y[i]=ll(y[i]-ymin)*h/(ymax-ymin);
+	}	
+	
+	nonconvexed_decrossing(n,arr,w,h,x,y);
 }
 void embad_general(int n,vector<int>* grr,int w,int h,int* x,int* y){
 	for(int v=0;v<n;v++){

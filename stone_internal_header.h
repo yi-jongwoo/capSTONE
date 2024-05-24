@@ -6,6 +6,21 @@ using namespace std;
 typedef long long ll;
 typedef long double ld;
 
+#include <boost/graph/adjacency_list.hpp>
+#include <boost/graph/properties.hpp>
+#include <boost/graph/graph_traits.hpp>
+#include <boost/property_map/property_map.hpp>
+#include <boost/ref.hpp>
+
+#include <boost/graph/make_biconnected_planar.hpp>
+#include <boost/graph/make_maximal_planar.hpp>
+#include <boost/graph/planar_face_traversal.hpp>
+
+#include <boost/graph/planar_canonical_ordering.hpp>
+#include <boost/graph/is_straight_line_drawing.hpp>
+#include <boost/graph/chrobak_payne_drawing.hpp>
+#include <boost/graph/boyer_myrvold_planar_test.hpp>
+
 #define NOTHING -1
 #define IMPOSSIBLE -2
 

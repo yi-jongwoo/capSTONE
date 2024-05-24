@@ -1,6 +1,4 @@
 #include "stone_internal_header.h"
-#include "../boost_1_82_0/boost/graph/adjacency_list.hpp"
-#include "../boost_1_82_0/boost/graph/boyer_myrvold_planar_test.hpp"
 
 bool dfs_check_tree(int x,int p,vector<int>* arr,int* vit){
 	vit[x]=1;
@@ -12,7 +10,7 @@ bool dfs_check_tree(int x,int p,vector<int>* arr,int* vit){
 }
 
 bool is_tree(int n,vector<int>* arr){
-	int*vit=new int[n];
+	int*vit=new int[n]; memset(vit,0,n*sizeof(int));
 	bool res=dfs_check_tree(0,-1,arr,vit);
 	delete[] vit;
 	return res;
@@ -36,7 +34,7 @@ int dfs_check_cactus(int x,int p,vector<int>* arr,int* vit){
 }
 
 bool is_cactus(int n,vector<int>* arr){ // cactus := edge cactus
-	int*vit=new int[n];
+	int*vit=new int[n]; memset(vit,0,n*sizeof(int));
 	bool res=dfs_check_tree(0,-1,arr,vit);
 	delete[] vit;
 	return res;
