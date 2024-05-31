@@ -18,13 +18,13 @@ bool is_tree(int n,vector<int>* arr){
 
 //return : backedge to..
 int dfs_check_cactus(int x,int p,vector<int>* arr,int* vit){
-	vit[x]=1;
+	vit[x]=p==NOTHING?1:vit[p]+1;
 	int res=NOTHING;
-	for(int y:arr[x])if(y!=p){
+	for(int y:arr[x])if(y!=p&&vit[y]<vit[x]){
 		int yret=vit[y] ? y : dfs_check_cactus(y,x,arr,vit);
 		if(yret==IMPOSSIBLE)
 			return IMPOSSIBLE;
-		if(yret!=NOTHING){
+		if(yret!=NOTHING && yret!=x){
 			if(res!=NOTHING)
 				return IMPOSSIBLE;
 			res=yret;
@@ -35,9 +35,9 @@ int dfs_check_cactus(int x,int p,vector<int>* arr,int* vit){
 
 bool is_cactus(int n,vector<int>* arr){ // cactus := edge cactus
 	int*vit=new int[n]; memset(vit,0,n*sizeof(int));
-	bool res=dfs_check_tree(0,-1,arr,vit);
+	int res=dfs_check_cactus(0,-1,arr,vit);
 	delete[] vit;
-	return res;
+	return res!=IMPOSSIBLE;
 }
 
 bool is_planar(int n,vector<int>* arr){
