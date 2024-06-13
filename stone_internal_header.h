@@ -1,7 +1,11 @@
 #ifndef STONE_INTERNAL_H
 #define STONE_INTERNAL_H
 
-#include <bits/stdc++.h>
+#include <vector>
+#include <utility>
+#include <string>
+#include <fstream>
+
 using namespace std;
 typedef long long ll;
 typedef long double ld;
