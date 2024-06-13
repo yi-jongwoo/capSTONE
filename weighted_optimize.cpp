@@ -132,10 +132,10 @@ void weighted_stone_huristic(int n,vector<int>* arr,int w,int h,int* out_x,int* 
 			}
 		}
 		
-		ll rtmp=0;
-		for(int v=0;v<n;v++)
-			rtmp+=weighted_objective(n,edges,out_x,out_y,v,adjs[v]);
-		cout<<rtmp;
+		//ll rtmp=0;
+		//for(int v=0;v<n;v++)
+		//	rtmp+=weighted_objective(n,edges,out_x,out_y,v,adjs[v]);
+		//cout<<rtmp;
 		return;
 	}
 	for(int t=0;t<30;t++){

@@ -5,12 +5,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> arr[1000];
+vector<pair<int,int>> arr[1000];
 
 int main(){
 	for(int i=1;i<20;i++){
-		arr[i].push_back(rand()%i);
+		arr[i].emplace_back(rand()%200,rand()%i);
 	}
-	arr[0].emplace_back(8);
-	graph_visualization(20,arr,"out.html",1000,1000);
+	weighted_graph_visualization(20,arr,"out.html",1000,1000);
 }

@@ -82,10 +82,10 @@ void weighted_graph_visualization(int n,vector<pair<int,int>>* arr,string filena
 	
 	delete [] vit;
 	delete [] grr;
-	//if(weighted_is_undirected(n,arr))
+	if(weighted_is_undirected(n,arr))
 		weighted_make_svg_undirected(filename,w,h,n,arr,x,y);
-	//else
-	//	weighted_make_svg(filename,w,h,n,arr,x,y);
+	else
+		weighted_make_svg(filename,w,h,n,arr,x,y);
 	delete [] x;
 	delete [] y;
 }
