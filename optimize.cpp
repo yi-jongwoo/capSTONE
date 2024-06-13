@@ -1,5 +1,33 @@
 #include "stone_internal_header.h"
 
+void dfs_bipartite_div(int x,vector<int>* arr,int* vit,
+  vector<int>&res0,vector<int>&res1){
+	if(vit[x])return;
+	vit[x]=1;
+	res0.push_back(x);
+	for(int y:arr[x])
+		dfs_bipartite_div(y,arr,vit,res1,res0);
+}
+
+void embad_bipartite(int n,vector<int>* grr,int w,int h,int* x,int* y){
+	vector<int> res0,res1;
+	int*vit=new int[n]; memset(vit,0,n*sizeof(int));
+	dfs_bipartite_div(0,grr,vit,res0,res1);
+	delete[] vit;
+	sort(res0.begin(),res0.end());
+	sort(res1.begin(),res1.end());
+	for(int i=0;i<res0.size();i++){
+		int u=res0[i];
+		x[u]=w/4;
+		y[u]=h*(1+i*2)/(2*res0.size());
+	}
+	for(int i=0;i<res1.size();i++){
+		int u=res1[i];
+		x[u]=w*3/4;
+		y[u]=h*(1+i*2)/(2*res1.size());
+	}
+}
+
 // reorder nodes by depth
 void dfs_tree_depth(int x,int p,int d,vector<int>* arr,vector<vector<int>>&res){
 	if(res.size()<=d)res.emplace_back();

@@ -1,5 +1,25 @@
 #include "stone_internal_header.h"
 
+int dfs_check_bipartite(int x,int p,vector<int>* arr,int* vit){
+    vit[x]=vit[x]==NOTHING?1:3-vit[p];
+    int res=NOTHING;
+    for(int y:arr[x]){
+        if(vit[y]){
+            if(vit[x]==vit[y]) return IMPOSSIBLE;
+            continue;
+        }
+        dfs_check_bipartite(y,x,arr,vit);
+    }
+    return res;
+}
+
+bool is_bipartite(int n,vector<int>* arr){ 
+    int*vit=new int[n]; memset(vit,0,n*sizeof(int));
+    int res=dfs_check_bipartite(0,-1,arr,vit);
+    delete[] vit;
+    return res!=IMPOSSIBLE;
+}
+
 bool dfs_check_tree(int x,int p,vector<int>* arr,int* vit){
 	vit[x]=1;
 	for(int y:arr[x])if(y!=p){

@@ -40,11 +40,13 @@ ll general_objective(int n,vector<pair<int,int>>&edges,
   int* x,int* y,int u,vector<pair<int,int>>& adj);
 
 //impl in test_graph.cpp
+bool is_bipartite(int n,vector<int>* arr);
 bool is_tree(int n,vector<int>* arr);
 bool is_cactus(int n,vector<int>* arr);
 bool is_planar(int n,vector<int>* arr);
 
 //impl in optimize.cpp
+void embad_bipartite(int n,vector<int>* grr,int w,int h,int* x,int* y);
 void embad_tree(int n,vector<int>* grr,int w,int h,int* x,int* y);
 void embad_cactus(int n,vector<int>* grr,int w,int h,int* x,int* y);
 void embad_planar(int n,vector<int>* grr,int w,int h,int* x,int* y);

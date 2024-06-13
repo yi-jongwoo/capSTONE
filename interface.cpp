@@ -35,6 +35,8 @@ pair<int*,int*> embad_unit(int n,vector<int>* grr,int w,int h){
 	int* y=new int[n];
 	if(is_tree(n,grr))
 		embad_tree(n,grr,w,h,x,y);
+	else if(is_bipartite(n,grr))
+		embad_bipartite(n,grr,w,h,x,y);
 	else if(is_cactus(n,grr))
 		embad_cactus(n,grr,w,h,x,y);
 	else if(is_planar(n,grr))
@@ -61,6 +63,7 @@ void graph_visualization(int n,vector<int>* arr,string filename,int w,int h){
 		if(vit[i])continue;
 		vector<int> uv;
 		dfs_con(i,grr,vit,uv);
+		sort(uv.begin(),uv.end());
 		
 		vector<int>* unit=new vector<int>[uv.size()];
 		map<int,int> inv_uv;

@@ -47,7 +47,10 @@ inline ll point_edge_dist(ll xx,ll yy,ll x0,ll y0,ll x1,ll y1){
 		else
 			r=(d-e)*(d-e)*100/(dx*dx+dy*dy);
 	}
-	return r==0?2000:5000/r;
+	
+	r=sqrt(r);
+	
+	return r<150 ? (150-r) :0;
 }
 
 inline ll weighted_objective(int n,vector<pair<int,int>>&edges,
@@ -90,8 +93,7 @@ void weighted_stone_huristic(int n,vector<int>* arr,int w,int h,int* out_x,int* 
 		adjs[v].emplace_back(u,v);
 	}
 	ll wweight =0;
-	for(int t=0;t<100;t++){
-		wweight++;
+	for(int t=0;t<80;t++){
 		for(int v=0;v<n;v++){
 			ll z=objective(n,edges,out_x,out_y,v,adjs[v])
 			  +weighted_objective(n,edges,out_x,out_y,v,adjs[v])*wweight;
@@ -109,7 +111,33 @@ void weighted_stone_huristic(int n,vector<int>* arr,int w,int h,int* out_x,int* 
 			}
 		}
 	}
-	if(!flag)return;
+	if(!flag){
+		for(int t=0;t<200;t++){
+			wweight++;
+			for(int v=0;v<n;v++){
+				ll z=objective(n,edges,out_x,out_y,v,adjs[v])
+				  +weighted_objective(n,edges,out_x,out_y,v,adjs[v])*wweight;
+				int x=out_x[v]; 
+				int rx=max(0,x-10),ry=min(w,x+10);
+				out_x[v]=rand()%(ry-rx+1)+rx;
+				int y=out_y[v]; 
+				rx=max(0,y-10),ry=min(h,y+10);
+				out_y[v]=rand()%(ry-rx+1)+rx;
+				ll nz=objective(n,edges,out_x,out_y,v,adjs[v])
+				  +weighted_objective(n,edges,out_x,out_y,v,adjs[v])*wweight;;
+				if(z<nz){
+					out_x[v]=x;
+					out_y[v]=y;
+				}
+			}
+		}
+		
+		ll rtmp=0;
+		for(int v=0;v<n;v++)
+			rtmp+=weighted_objective(n,edges,out_x,out_y,v,adjs[v]);
+		cout<<rtmp;
+		return;
+	}
 	for(int t=0;t<30;t++){
 		wweight++;
 		for(int v=0;v<n;v++){
