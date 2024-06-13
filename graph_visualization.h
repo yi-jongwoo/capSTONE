@@ -5,5 +5,6 @@
 #include <string>
 
 void graph_visualization(int n,std::vector<int>* arr,std::string filename,int w,int h);
+void weighted_graph_visualization(int n,vector<pair<int,int>>* arr,string filename,int w,int h);
 
 #endif

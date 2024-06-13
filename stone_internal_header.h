@@ -23,6 +23,17 @@ typedef long double ld;
 
 #define NOTHING -1
 #define IMPOSSIBLE -2
+#define weight first
+#define link second
+
+//impl in stone_utility.cpp
+bool is_cross(ll a,ll b,ll c,ll d,ll e,ll f,ll g,ll h);
+ll cactus_objective(int n,vector<pair<int,int>>&edges,
+  int* x,int* y,int u,vector<pair<int,int>>& adj);
+ll planar_objective(int n,vector<pair<int,int>>&edges,
+  int* x,int* y,int u,vector<pair<int,int>>& adj);
+ll general_objective(int n,vector<pair<int,int>>&edges,
+  int* x,int* y,int u,vector<pair<int,int>>& adj);
 
 //impl in test_graph.cpp
 bool is_tree(int n,vector<int>* arr);
@@ -38,5 +49,26 @@ void embad_general(int n,vector<int>* grr,int w,int h,int* x,int* y);
 //impl in visualization.cpp
 void make_svg_undirected(string filename,int w,int h,int n,vector<int>* arr,int* x,int* y);
 void make_svg(string filename,int w,int h,int n,vector<int>* arr,int* x,int* y);
+
+//impl in weighted_optimize.cpp
+void weighted_embad_cactus(int n,vector<int>* grr,int w,int h,int* x,int* y);
+void weighted_embad_planar(int n,vector<int>* grr,int w,int h,int* x,int* y);
+void weighted_embad_general(int n,vector<int>* grr,int w,int h,int* x,int* y);
+
+//impl in weighted_visualization.cpp
+void weighted_make_svg_undirected(string filename,int w,int h,int n,vector<pair<int,int>>* arr,int* x,int* y);
+void weighted_make_svg(string filename,int w,int h,int n,vector<pair<int,int>>* arr,int* x,int* y);
+
+struct coord_t
+{
+  std::size_t x;
+  std::size_t y;
+};
+struct face_counter : public boost::planar_face_traversal_visitor
+{
+  face_counter() : count(0) {}
+  void begin_face() { ++count; }
+  int count;
+};
 
 #endif

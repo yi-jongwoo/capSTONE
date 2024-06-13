@@ -82,10 +82,10 @@ void graph_visualization(int n,vector<int>* arr,string filename,int w,int h){
 	
 	delete [] vit;
 	delete [] grr;
-	//if(is_undirected(n,grr))
+	if(is_undirected(n,arr))
 		make_svg_undirected(filename,w,h,n,arr,x,y);
-	//else
-	//	make_svg(filename,w,h,n,arr,x,y);
+	else
+		make_svg(filename,w,h,n,arr,x,y);
 	delete [] x;
 	delete [] y;
 }
