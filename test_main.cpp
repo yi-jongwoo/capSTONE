@@ -13,8 +13,8 @@ int main(){
 		for(int j=0;j<5;j++)
 			arr[5*j+25*i].emplace_back(rand()%200,(j+1)%5*5+25*i);
 	arr[0].emplace_back(rand()%200,25);
-	//arr[0].push_back(50);
-	//arr[0].push_back(75);
-	//arr[50].push_back(75);
-	weighted_graph_visualization(50,arr,"out.html",814,814);
+	arr[0].emplace_back(rand()%200,50);
+	arr[0].emplace_back(rand()%200,75);
+	arr[50].emplace_back(rand()%200,75);
+	weighted_graph_visualization(100,arr,"out.html",1000,1000);
 }

@@ -96,10 +96,10 @@ void weighted_stone_huristic(int n,vector<int>* arr,int w,int h,int* out_x,int* 
 			ll z=objective(n,edges,out_x,out_y,v,adjs[v])
 			  +weighted_objective(n,edges,out_x,out_y,v,adjs[v])*wweight;
 			int x=out_x[v]; 
-			int rx=max(0,x-100),ry=min(w,x+100);
+			int rx=max(0,x-10),ry=min(w,x+10);
 			out_x[v]=rand()%(ry-rx+1)+rx;
 			int y=out_y[v]; 
-			rx=max(0,y-100),ry=min(h,y+100);
+			rx=max(0,y-10),ry=min(h,y+10);
 			out_y[v]=rand()%(ry-rx+1)+rx;
 			ll nz=objective(n,edges,out_x,out_y,v,adjs[v])
 			  +weighted_objective(n,edges,out_x,out_y,v,adjs[v])*wweight;;
