@@ -24,14 +24,14 @@ void weighted_make_svg_undirected(string filename,int w,int h,int n,vector<pair<
             <<"\" r=\"4\" fill=\"blue\" />\n";
     for(int i=0;i<n;i++)
         fout<<"<text x=\""<<x[i]+2<<"\" y=\""<<y[i]
-            <<"\" fill=\"black\" font-weight=\"bold\">"<<i<<"</text>\n";
+            <<"\" fill=\"white\" stroke=\"red\" font-weight=\"bold\">"<<i<<"</text>\n";
 
     for(int i=0;i<n;i++)for(pair<int,int> p:arr[i]){
         int c=p.first;
         int j=p.second;
 
         fout<<"<text x=\""<<(double)(x[i]+x[j])/2<<"\" y=\""<<(double)(y[i]+y[j])/2
-            <<"\" fill=\"black\" text-anchor=\"middle\" dominant-baseline=\"middle\" font-size=\"12\" >"<<c<<"</text>\n";
+            <<"\" fill=\"black\" text-anchor=\"middle\" dominant-baseline=\"middle\" font-size=\"12\" font-weight=\"bold\" >"<<c<<"</text>\n";
     }
 
 
@@ -57,7 +57,7 @@ fill='none' stroke='#404040' d='M"<<x[i]<<","<<y[i]<<", "<<x[j]<<" "<<y[j]<<",12
             <<"\" r=\"4\" fill=\"blue\" />\n";
     for(int i=0;i<n;i++)
         fout<<"<text x=\""<<x[i]+2<<"\" y=\""<<y[i]
-            <<"\" fill=\"white\" stroke=\"red\" font-weight=\"bold\">"<<i<<"</text>\n";
+            <<"\" fill=\"white\" font-size=\"24\" stroke=\"red\" font-weight=\"bold\">"<<i<<"</text>\n";
 
     for(int i=0;i<n;i++)for(pair<int,int> p:arr[i]){
         int c=p.first;

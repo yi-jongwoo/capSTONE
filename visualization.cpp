@@ -16,9 +16,10 @@ void make_svg_undirected(string filename,int w,int h,int n,vector<int>* arr,int*
 			<<"\" r=\"4\" fill=\"blue\" />\n";
 	for(int i=0;i<n;i++)
 		fout<<"<text x=\""<<x[i]+2<<"\" y=\""<<y[i]
-			<<"\" fill=\"black\">"<<i<<"</text>\n";
+			<<"\" fill=\"white\" stroke=\"red\" font-weight=\"bold\">"<<i<<"</text>\n";
 	fout<<"</svg></body></html>";
 }
+
 void make_svg(string filename,int w,int h,int n,vector<int>* arr,int* x,int* y){
     ofstream fout(filename);
     fout<<"<html><body>\n";
@@ -37,6 +38,6 @@ fill='none' stroke='#404040' d='M"<<x[i]<<","<<y[i]<<", "<<x[j]<<" "<<y[j]<<",12
             <<"\" r=\"4\" fill=\"blue\" />\n";
     for(int i=0;i<n;i++)
         fout<<"<text x=\""<<x[i]+2<<"\" y=\""<<y[i]
-            <<"\" fill=\"red\" font-weight=\"bold\">"<<i<<"</text>\n";
+            <<"\" fill=\"white\" font-size=\"24\" stroke=\"red\" font-weight=\"bold\">" <<i<<"</text>\n";
     fout<<"</svg></body></html>";
 }
